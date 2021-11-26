@@ -17,6 +17,8 @@ The analysis can be reproduced by running the following [Jupyter](https://jupyte
 - `diagnostics.ipynb`: histograms; correlation matrices; cumulative distributions; coefficients of variation
 - `final_analysis.ipynb`: principal component analysis; predictive models for antibody response; variable importances
 
+For the further details on utility functions, consult their documentation.
+
 ### Maintainer
 
 This repository is maintained by Ričards Marcinkevičs ([ricards.marcinkevics@inf.ethz.ch](mailto:ricards.marcinkevics@inf.ethz.ch)).
