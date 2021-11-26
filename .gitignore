@@ -1,0 +1,6 @@
+*.xlsx
+*.csv
+*.png
+.ipynb_checkpoints/
+.idea/
+*.jpg
