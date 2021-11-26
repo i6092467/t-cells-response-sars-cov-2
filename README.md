@@ -14,8 +14,8 @@ conda activate ...                    # activate environment
 
 The analysis can be reproduced by running the following [Jupyter](https://jupyter.org/) notebooks:
 - `thresholds.ipynb`: computing optimal antibody level cutoffs
-- `diagnostics.ipynb`: histograms, correlation matrices, cumulative distributions, coefficients of variation
-- `final_analysis.ipynb`: principal component analysis, predictive models for antibody response, variable importance
+- `diagnostics.ipynb`: histograms; correlation matrices; cumulative distributions; coefficients of variation
+- `final_analysis.ipynb`: principal component analysis; predictive models for antibody response; variable importances
 
 ### Maintainer
 
