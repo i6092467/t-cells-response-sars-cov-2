@@ -1,8 +1,5 @@
-*.xlsx
-*.csv
-*.png
+results/*
+figures/*
 .ipynb_checkpoints/
 .idea/
-*.jpg
-*.svg
 .Rhistory

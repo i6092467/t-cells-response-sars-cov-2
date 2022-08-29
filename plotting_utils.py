@@ -153,30 +153,18 @@ def plot_hist_assay_by_tretament(rdata: np.ndarray, rdata_cols: list, ndata: np.
     """
     assay_cols_r = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype, s) and
                     not(re.search('_1_', s)) and not(re.search('_7_', s))]
-    print('Total raw assay columns: ' + str(len(assay_cols_r)))
     assay_cols_r_cov2mix = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_2', s)]
-    print('Cov-2 mix raw assay columns: ' + str(len(assay_cols_r_cov2mix)))
     assay_cols_r_protn = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_3', s)]
-    print('Protein N raw assay columns: ' + str(len(assay_cols_r_protn)))
     assay_cols_r_prots1 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_4', s)]
-    print('Protein S1 raw assay columns: ' + str(len(assay_cols_r_prots1)))
     assay_cols_r_prots = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_5', s)]
-    print('Protein S raw assay columns: ' + str(len(assay_cols_r_prots)))
     assay_cols_r_protm = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_6', s)]
-    print('Protein M raw assay columns: ' + str(len(assay_cols_r_protm)))
 
     assay_cols_n = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype, s)]
-    print('Total normalised assay columns: ' + str(len(assay_cols_n)))
     assay_cols_n_cov2mix = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_2', s)]
-    print('Cov-2 mix normalised assay columns: ' + str(len(assay_cols_n_cov2mix)))
     assay_cols_n_protn = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_3', s)]
-    print('Protein N normalised assay columns: ' + str(len(assay_cols_n_protn)))
     assay_cols_n_prots1 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_4', s)]
-    print('Protein S1 normalised assay columns: ' + str(len(assay_cols_n_prots1)))
     assay_cols_n_prots = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_5', s)]
-    print('Protein S normalised assay columns: ' + str(len(assay_cols_n_prots)))
     assay_cols_n_protm = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + dtype + '_6', s)]
-    print('Protein M normalised assay columns: ' + str(len(assay_cols_n_protm)))
 
     # Retrieve values
     values_r = np.ravel(rdata[:, assay_cols_r]).astype(np.float64)
@@ -288,30 +276,18 @@ def plot_hist_assay_by_tretament_mfi(rdata: np.ndarray, rdata_cols: list, ndata:
     """
     assay_cols_r = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay +'_\.', s) and
                     not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
-    print('Total raw assay columns: ' + str(len(assay_cols_r)))
     assay_cols_r_cov2mix = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.2', s)]
-    print('Cov-2 mix raw assay columns: ' + str(len(assay_cols_r_cov2mix)))
     assay_cols_r_protn = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.3', s)]
-    print('Protein N raw assay columns: ' + str(len(assay_cols_r_protn)))
     assay_cols_r_prots1 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.4', s)]
-    print('Protein S1 raw assay columns: ' + str(len(assay_cols_r_prots1)))
     assay_cols_r_prots = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.5', s)]
-    print('Protein S raw assay columns: ' + str(len(assay_cols_r_prots)))
     assay_cols_r_protm = [i for i, s in enumerate(rdata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.6', s)]
-    print('Protein M raw assay columns: ' + str(len(assay_cols_r_protm)))
 
     assay_cols_n = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.', s)]
-    print('Total normalised assay columns: ' + str(len(assay_cols_n)))
     assay_cols_n_cov2mix = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.2', s)]
-    print('Cov-2 mix normalised assay columns: ' + str(len(assay_cols_n_cov2mix)))
     assay_cols_n_protn = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.3', s)]
-    print('Protein N normalised assay columns: ' + str(len(assay_cols_n_protn)))
     assay_cols_n_prots1 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.4', s)]
-    print('Protein S1 normalised assay columns: ' + str(len(assay_cols_n_prots1)))
     assay_cols_n_prots = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.5', s)]
-    print('Protein S normalised assay columns: ' + str(len(assay_cols_n_prots)))
     assay_cols_n_protm = [i for i, s in enumerate(ndata_cols) if re.search('\.' + assay + '_pos_' + assay + '_\.6', s)]
-    print('Protein M normalised assay columns: ' + str(len(assay_cols_n_protm)))
 
     # Retrieve values
     values_r = np.ravel(rdata[:, assay_cols_r]).astype(np.float64)
@@ -404,7 +380,7 @@ def plot_hist_assay_by_tretament_mfi(rdata: np.ndarray, rdata_cols: list, ndata:
 
 
 def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, ndata_cols: list, ndata_mfi: np.ndarray,
-                     ndata_cols_mfi: list, bins: int = 150, savedir: str = None) -> None:
+                     ndata_cols_mfi: list, bins: int = 150, linewidth: int = 5, savedir: str = None) -> None:
     """
     Plots assay-specific empirical CDFs before and after pre-processing.
 
@@ -422,59 +398,59 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
     dtypes = ['count', 'perc', 'mfi']
     dtype_names = ['Count', 'Percentage', 'MFI']
     subfig_caps = ['(a)', '(b)', '(c)']
-    
+
     plotting_setup(font_size=30)
     fig, ax = plt.subplots(1, len(dtypes), figsize=(7 + 10 * len(dtypes), 9))
-    
+
     for j in range(len(dtypes)):
         xrange = xranges[j]
         dtype = dtypes[j]
         dtype_name = dtype_names[j]
-        
-        if dtype == 'mfi':
-            assay_cols_r_TNF = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'TNF' + '_pos_' + 
-                                                                                 'TNF' +'_\.', s) and 
-                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
-            assay_cols_r_IFN = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IFN' + '_pos_' + 
-                                                                                 'IFN' +'_\.', s) and 
-                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
-            assay_cols_r_IL2 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IL2' + '_pos_' + 
-                                                                                 'IL2' +'_\.', s) and 
-                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
-            assay_cols_r_CD154 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'CD154' + '_pos_' + 
-                                                                                 'CD154' +'_\.', s) and 
-                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
-            
-            assay_cols_n_TNF = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'TNF' + '_pos_' + 
-                                                                                     'TNF' + '_\.', s)]
-            assay_cols_n_IFN = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'IFN' + '_pos_' + 
-                                                                                     'IFN' + '_\.', s)]
-            assay_cols_n_IL2 = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'IL2' + '_pos_' + 
-                                                                                     'IL2' + '_\.', s)]
-            assay_cols_n_CD154 = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'CD154' + '_pos_' + 
-                                                                                     'CD154' + '_\.', s)]
-            
-        else:
-            assay_cols_r_TNF = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'TNF' + '_pos_' + 
-                                                                                 dtype, s) and
-                            not(re.search('_1_', s)) and not(re.search('_7_', s))]
-            assay_cols_r_IFN = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IFN' + '_pos_' + 
-                                                                                 dtype, s) and
-                            not(re.search('_1_', s)) and not(re.search('_7_', s))]
-            assay_cols_r_IL2 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IL2' + '_pos_' + 
-                                                                                 dtype, s) and
-                            not(re.search('_1_', s)) and not(re.search('_7_', s))]
-            assay_cols_r_CD154 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'CD154' + '_pos_' + 
-                                                                                   dtype, s) and
-                            not(re.search('_1_', s)) and not(re.search('_7_', s))]
 
-            assay_cols_n_TNF = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'TNF' + '_pos_' + 
+        if dtype == 'mfi':
+            assay_cols_r_TNF = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'TNF' + '_pos_' +
+                                                                                 'TNF' + '_\.', s) and
+                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
+            assay_cols_r_IFN = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IFN' + '_pos_' +
+                                                                                 'IFN' + '_\.', s) and
+                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
+            assay_cols_r_IL2 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IL2' + '_pos_' +
+                                                                                 'IL2' + '_\.', s) and
+                                not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
+            assay_cols_r_CD154 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'CD154' + '_pos_' +
+                                                                                   'CD154' + '_\.', s) and
+                                  not (re.search('_\.1_', s)) and not (re.search('_.7_', s))]
+
+            assay_cols_n_TNF = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'TNF' + '_pos_' +
+                                                                                     'TNF' + '_\.', s)]
+            assay_cols_n_IFN = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'IFN' + '_pos_' +
+                                                                                     'IFN' + '_\.', s)]
+            assay_cols_n_IL2 = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'IL2' + '_pos_' +
+                                                                                     'IL2' + '_\.', s)]
+            assay_cols_n_CD154 = [i for i, s in enumerate(ndata_cols_mfi) if re.search('\.' + 'CD154' + '_pos_' +
+                                                                                       'CD154' + '_\.', s)]
+
+        else:
+            assay_cols_r_TNF = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'TNF' + '_pos_' +
+                                                                                 dtype, s) and
+                                not (re.search('_1_', s)) and not (re.search('_7_', s))]
+            assay_cols_r_IFN = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IFN' + '_pos_' +
+                                                                                 dtype, s) and
+                                not (re.search('_1_', s)) and not (re.search('_7_', s))]
+            assay_cols_r_IL2 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'IL2' + '_pos_' +
+                                                                                 dtype, s) and
+                                not (re.search('_1_', s)) and not (re.search('_7_', s))]
+            assay_cols_r_CD154 = [i for i, s in enumerate(rdata_cols) if re.search('\.' + 'CD154' + '_pos_' +
+                                                                                   dtype, s) and
+                                  not (re.search('_1_', s)) and not (re.search('_7_', s))]
+
+            assay_cols_n_TNF = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'TNF' + '_pos_' +
                                                                                  dtype, s)]
-            assay_cols_n_IFN = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'IFN' + '_pos_' + 
+            assay_cols_n_IFN = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'IFN' + '_pos_' +
                                                                                  dtype, s)]
-            assay_cols_n_IL2 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'IL2' + '_pos_' + 
+            assay_cols_n_IL2 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'IL2' + '_pos_' +
                                                                                  dtype, s)]
-            assay_cols_n_CD154 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'CD154' + '_pos_' + 
+            assay_cols_n_CD154 = [i for i, s in enumerate(ndata_cols) if re.search('\.' + 'CD154' + '_pos_' +
                                                                                    dtype, s)]
 
         # Retrieve values
@@ -502,12 +478,12 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
         values_n_IFN[np.isnan(values_n_IFN)] = 0.0
         values_n_IL2[np.isnan(values_n_IL2)] = 0.0
         values_n_CD154[np.isnan(values_n_CD154)] = 0.0
-        
+
         values_r_TNF = np.append(values_r_TNF, xrange[1])
         values_r_IFN = np.append(values_r_IFN, xrange[1])
         values_r_IL2 = np.append(values_r_IL2, xrange[1])
         values_r_CD154 = np.append(values_r_CD154, xrange[1])
-        
+
         values_n_TNF = np.append(values_n_TNF, xrange[1])
         values_n_IFN = np.append(values_n_IFN, xrange[1])
         values_n_IL2 = np.append(values_n_IL2, xrange[1])
@@ -515,49 +491,53 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
 
         # All treatments
         if dtype == 'mfi':
-            ax[j].hist(values_r_IL2, bins=bins, color=CB_COLOR_CYCLE[2], alpha=0.75, cumulative=True, 
-                       density=True, label='IL2, raw')
-            ax[j].hist(values_r_IFN, bins=bins, color=CB_COLOR_CYCLE[1], alpha=0.75, cumulative=True, 
-                       density=True, label='IFN, raw')
-            ax[j].hist(values_r_TNF, bins=bins, color=CB_COLOR_CYCLE[0], alpha=0.75, cumulative=True, 
-                       density=True, label='TNF, raw')
-            ax[j].hist(values_r_CD154, bins=bins, color=CB_COLOR_CYCLE[3], alpha=0.75, cumulative=True, 
-                       density=True, label='CD154, raw')
-            ax[j].hist(values_n_IL2, bins=bins, color=CB_COLOR_CYCLE[2], alpha=0.15, cumulative=True, 
-                       density=True, hatch='.', label='IL2, normalised')
-            ax[j].hist(values_n_IFN, bins=bins, color=CB_COLOR_CYCLE[1], alpha=0.15, cumulative=True, 
-                       density=True, hatch='..', label='IFN, normalised')
-            ax[j].hist(values_n_TNF, bins=bins, color=CB_COLOR_CYCLE[0], alpha=0.15, cumulative=True, 
-                       density=True, hatch='-', label='TNF, normalised')
-            ax[j].hist(values_n_CD154, bins=bins, color=CB_COLOR_CYCLE[3], alpha=0.15, cumulative=True, 
-                       density=True, hatch='/', label='CD154, normalised')
-            
-        else:
-            ax[j].hist(values_r_CD154, bins=bins, color=CB_COLOR_CYCLE[3], alpha=0.75, cumulative=True, 
-                       density=True, label='CD154, raw')
-            ax[j].hist(values_r_IFN, bins=bins, color=CB_COLOR_CYCLE[1], alpha=0.75, cumulative=True, 
-                       density=True, label='IFN, raw')
-            ax[j].hist(values_r_TNF, bins=bins, color=CB_COLOR_CYCLE[0], alpha=0.75, cumulative=True, 
-                       density=True, label='TNF, raw')
-            ax[j].hist(values_r_IL2, bins=bins, color=CB_COLOR_CYCLE[2], alpha=0.75, cumulative=True, 
-                       density=True, label='IL2, raw')
-            ax[j].hist(values_n_CD154, bins=bins, color=CB_COLOR_CYCLE[3], alpha=0.15, cumulative=True, 
-                       density=True, hatch='/', label='CD154, normalised')
-            ax[j].hist(values_n_IFN, bins=bins, color=CB_COLOR_CYCLE[1], alpha=0.15, cumulative=True, 
-                       density=True, hatch='..', label='IFN, normalised')
-            ax[j].hist(values_n_TNF, bins=bins, color=CB_COLOR_CYCLE[0], alpha=0.15, cumulative=True, 
-                       density=True, hatch='-', label='TNF, normalised')
-            ax[j].hist(values_n_IL2, bins=bins, color=CB_COLOR_CYCLE[2], alpha=0.15, cumulative=True, 
-                       density=True, hatch='.', label='IL2, normalised')
+            ax[j].hist(values_r_IL2, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
+                       density=True, label='IL2, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_IFN, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
+                       density=True, label='IFN, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_TNF, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
+                       density=True, label='TNF, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_CD154, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
+                       cumulative=True,
+                       density=True, label='CD154, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
+                       density=True, label='IL2, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
+                       density=True, label='IFN, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
+                       density=True, label='TNF, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
+                       cumulative=True,
+                       density=True, label='CD154, normalised', histtype=u'step', linewidth=linewidth)
 
-        if j == len(dtypes)- 1:
+        else:
+            ax[j].hist(values_r_CD154, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
+                       cumulative=True,
+                       density=True, label='CD154, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_IFN, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
+                       density=True, label='IFN, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_TNF, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
+                       density=True, label='TNF, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_r_IL2, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
+                       density=True, label='IL2, raw', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
+                       cumulative=True,
+                       density=True, label='CD154, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
+                       density=True, label='IFN, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
+                       density=True, label='TNF, normalised', histtype=u'step', linewidth=linewidth)
+            ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
+                       density=True, label='IL2, normalised', histtype=u'step', linewidth=linewidth)
+
+        if j == len(dtypes) - 1:
             plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1.05))
 
         ax[j].set_xlim(xrange)
         ax[j].set_xlabel(str(dtype_name))
         if j == 0:
             ax[j].set_ylabel('% Measurements')
-        
+
         ax[j].text(xrange[0], -0.25, subfig_caps[j], weight='bold')
 
         plt.tight_layout()
