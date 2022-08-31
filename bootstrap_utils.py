@@ -451,13 +451,14 @@ def boot_feature_selection_LR(X: np.ndarray, y: np.ndarray, metric, p_max: int, 
     return perf_mean, perf_lower, perf_upper
 
 
-def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
+def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str, df_dir: str) -> None:
     """
     Runs the bootstrapped train-test split procedure for XGBoost to predict the specified antibody response from
     the specified treatment.
 
     :param trt: treatment.
     :param ab: antibody type.
+    :param df_dir: data directory
     :return: None.
     """
     
@@ -465,38 +466,41 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
     
     # Load raw data
     # NB: low_memory=False is needed to deal with mixed type variables
-    df = read_csv(filepath_or_buffer="CoV-ETH_190721_to_JV_190721.csv", low_memory=False)
-    # Inclusion criteria: 
-    included = np.logical_or(df['Proband_in_miltenyi_positive_negative_consolidated'].values == 'positive', 
+    df = read_csv(filepath_or_buffer=df_dir, low_memory=False)
+
+    # Inclusion criteria:
+    included = np.logical_or(df['Proband_in_miltenyi_positive_negative_consolidated'].values == 'positive',
                              df['Proband_in_miltenyi_positive_negative_consolidated'].values == 'negative')
+
     df_included = df.loc[np.squeeze(np.argwhere(included)),]
-    
-    # Define consolidated antibody response
-    consolidated_response_S10 = np.logical_and(
-        df_included['RB50_IgG_S10'].values >= 50, np.logical_or(
-            df_included['NP50_IgG_S10'].values >= 5.0, np.logical_or(df_included['S150_IgG_S10'].values >= 20, 
-                                                                     df_included['S250_IgG_S10'].values >= 5.0)))
-    consolidated_response_S11 = np.logical_and(
-        df_included['RB50_IgG_S11'].values >= 50, np.logical_or(
-            df_included['NP50_IgG_S11'].values >= 5.0, np.logical_or(df_included['S150_IgG_S11'].values >= 20, 
-                                                                     df_included['S250_IgG_S11'].values >= 5.0)))
-    consolidated_response_ = np.logical_or(consolidated_response_S10, consolidated_response_S11)
 
-    RBn_only_S10 = np.logical_and(
-        df_included['RB50_IgG_S10'].values >= 50, np.logical_not(np.logical_or(
-            df_included['NP50_IgG_S10'].values >= 5.0, np.logical_or(df_included['S150_IgG_S10'].values >=20, 
-                                                                     df_included['S250_IgG_S10'].values >= 5.0))))
-    RBn_only_S11 = np.logical_and(
-        df_included['RB50_IgG_S11'].values >= 50, np.logical_not(np.logical_or(
-            df_included['NP50_IgG_S11'].values >= 5.0, np.logical_or(df_included['S150_IgG_S11'].values >= 20, 
-                                                                     df_included['S250_IgG_S11'].values >= 5.0))))
+    # Exclude patients with an RBD-only response from the analysis
+    RBn_only_S10 = np.logical_and(df_included['RB50_IgG_S10'].values >= 50,
+                                  np.logical_not(np.logical_or(df_included['NP50_IgG_S10'].values >= 5.0,
+                                                               np.logical_or(df_included['S150_IgG_S10'].values >= 20,
+                                                                             df_included[
+                                                                                 'S250_IgG_S10'].values >= 5.0))))
+    RBn_only_S11 = np.logical_and(df_included['RB50_IgG_S11'].values >= 50,
+                                  np.logical_not(np.logical_or(df_included['NP50_IgG_S11'].values >= 5.0,
+                                                               np.logical_or(df_included['S150_IgG_S11'].values >= 20,
+                                                                             df_included[
+                                                                                 'S250_IgG_S11'].values >= 5.0))))
     RBn_only = np.logical_and(RBn_only_S10, RBn_only_S11)
-    wo_blocking = df_included['BoB_all_IC50_consolidated_S10'].values >= 10
+    df_included = df_included.iloc[np.squeeze(np.argwhere(np.logical_not(RBn_only))),]
 
+    # Define consolidated antibody response
+    consolidated_response_S10 = np.logical_and(df_included['RB50_IgG_S10'].values >= 50,
+                                               np.logical_or(df_included['NP50_IgG_S10'].values >= 5.0,
+                                                             np.logical_or(df_included['S150_IgG_S10'].values >= 20,
+                                                                           df_included['S250_IgG_S10'].values >= 5.0)))
+    consolidated_response_S11 = np.logical_and(df_included['RB50_IgG_S11'].values >= 50,
+                                               np.logical_or(df_included['NP50_IgG_S11'].values >= 5.0,
+                                                             np.logical_or(df_included['S150_IgG_S11'].values >= 20,
+                                                                           df_included['S250_IgG_S11'].values >= 5.0)))
+    consolidated_response_ = np.logical_or(consolidated_response_S10, consolidated_response_S11)
     consolidated_response = np.copy(consolidated_response_).astype('U32')
     consolidated_response[consolidated_response_] = 'positive'
     consolidated_response[np.logical_not(consolidated_response_)] = 'negative'
-    consolidated_response[RBn_only] = 'borderline'
     
     # Define treatment
     trt_suffix = ''
@@ -529,8 +533,6 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
         rb50_response[:] = "negative"
         rb50_response[np.logical_or(rb50_response_s10 == 'positive', 
                                     rb50_response_s11 == 'positive')] = 'positive'
-        rb50_borderline_cases = np.logical_and(rb50_response_s10 == 'borderline', 
-                                               rb50_response_s11 == 'borderline')
         target_response = rb50_response
     elif ab == 'np50':
         ab_suffix = '_np50'
@@ -541,8 +543,6 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
         np50_response[:] = "negative"
         np50_response[np.logical_or(np50_response_s10 == 'positive', 
                                     np50_response_s11 == 'positive')] = 'positive'
-        np50_borderline_cases = np.logical_and(np50_response_s10 == 'borderline', 
-                                               np50_response_s11 == 'borderline')
         target_response = np50_response
     elif ab == 's150':
         ab_suffix = '_s150'
@@ -553,8 +553,6 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
         s150_response[:] = "negative"
         s150_response[np.logical_or(s150_response_s10 == 'positive', 
                                     s150_response_s11 == 'positive')] = 'positive'
-        s150_borderline_cases = np.logical_and(s150_response_s10 == 'borderline', 
-                                               s150_response_s11 == 'borderline')
         
         target_response = s150_response
     elif ab == 's250':
@@ -566,8 +564,6 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
         s250_response[:] = "negative"
         s250_response[np.logical_or(s250_response_s10 == 'positive', 
                                     s250_response_s11 == 'positive')] = 'positive'
-        s250_borderline_cases = np.logical_and(s250_response_s10 == 'borderline', 
-                                               s250_response_s11 == 'borderline')
         target_response = s250_response
     elif ab == 'nab':
         ab_suffix = '_nab'
@@ -578,8 +574,6 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
         nab_response[:] = "negative"
         nab_response[np.logical_or(nab_response_s10 == 'positive', 
                                    nab_response_s11 == 'positive')] = 'positive'
-        nab_borderline_cases = np.logical_and(nab_response_s10 == 'borderline', 
-                                              nab_response_s11 == 'borderline')
         target_response = nab_response
     else:
         NotImplementedError('ERROR: wrong antibody type!')
@@ -598,8 +592,7 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str) -> None:
             disease_status = ((target_response == "positive") * 1.0).astype(int)
             metrics_clf, metrics_proba, feature_importances = boot_train_test_XGB(
                 X=df_tcell, y=disease_status, metrics_clf=[balanced_accuracy_score, sensitivity, specificity], 
-                metrics_proba=[roc_auc_score, average_precision_score], B=1000, borderline_cases=RBn_only, 
-                drop_borderline=True)
+                metrics_proba=[roc_auc_score, average_precision_score])
             np.savetxt(fname='results/metrics_clf' + ab_suffix + trt_suffix + '.csv', X=metrics_clf, delimiter=",")
             np.savetxt(fname='results/metrics_proba' + ab_suffix + trt_suffix + '.csv', X=metrics_proba, delimiter=",")
             np.savetxt(fname='results/feat_imps' + ab_suffix + trt_suffix + '.csv', X=feature_importances, 
