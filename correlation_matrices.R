@@ -40,16 +40,17 @@ segments(22.5, 56.5, 22.5, 12.5, col = 'black', lwd = 2)
 segments(26.5, 56.5, 26.5, 8.5, col = 'black', lwd = 2)
 segments(30.5, 56.5, 30.5, 4.5, col = 'black', lwd = 2)
 
-text(-1.8, 31.5, 'Ab t1', cex=1.0, srt = 90, font = 2)
-text(0, 26.5, 'Ab t2', cex=1.0, srt = 90, font = 2)
-text(1.5, 22.5, 'CD3 t1', cex=1.0, srt = 90, font = 2)
-text(5.5, 18.5, 'CD4 t1', cex=1.0, srt = 90, font = 2)
-text(9.5, 14.5, 'CD8 t1', cex=1.0, srt = 90, font = 2)
-text(13.5, 10.5, 'CD3 t2', cex=1.0, srt = 90, font = 2)
-text(17.5, 6.5, 'CD4 t2', cex=1.0, srt = 90, font = 2)
-text(21.5, 2.75, 'CD8 t2', cex=1.0, srt = 90, font = 2)
+text(-1.8, 31.5, expression(bold('Ab t'[1])), cex=1.0, srt = 90, font = 2)
+text(0, 26.5, expression(bold('Ab t'[2])), cex=1.0, srt = 90, font = 2)
+text(1.5, 22.5, expression(bold('CD3 t'[1])), cex=1.0, srt = 90, font = 2)
+text(5.5, 18.5, expression(bold('CD4 t'[1])), cex=1.0, srt = 90, font = 2)
+text(9.5, 14.5, expression(bold('CD8 t'[1])), cex=1.0, srt = 90, font = 2)
+text(13.5, 10.5, expression(bold('CD3 t'[2])), cex=1.0, srt = 90, font = 2)
+text(17.5, 6.5, expression(bold('CD4 t'[2])), cex=1.0, srt = 90, font = 2)
+text(21.5, 2.75, expression(bold('CD8 t'[2])), cex=1.0, srt = 90, font = 2)
 
-legend(1, 11.5, legend = c('Serology at t1', 'Serology at t2', 'T-cell assays at t1', 'T-cell assays at t2'), 
+legend(1, 11.5, legend = c(expression('Serology at t'[1]), expression('Serology at t'[2]), expression('T-cell assays at t'[1]), 
+                           expression('T-cell assays at t'[2])), 
        fill = c('red', 'orange', 'blue', 'cadetblue4'), cex=1.2)
 dev.off()
 
@@ -89,7 +90,7 @@ segments(34.5, 66.5, 34.5, 16.5, col = 'black', lwd = 2)
 segments(42.5, 66.5, 42.5, 8.5, col = 'black', lwd = 2)
 
 text(-3, 44.5, 'Ab', cex=1.0, srt = 90, font = 2)
-text(-1, 36.5, 'Cov-mix', cex=1.0, srt = 90, font = 2)
+text(-1, 36.5, 'CoV-Mix', cex=1.0, srt = 90, font = 2)
 text(9, 28.5, 'N', cex=1.0, srt = 90, font = 2)
 text(16, 20.5, 'S1', cex=1.0, srt = 90, font = 2)
 text(24, 12.5, 'S', cex=1.0, srt = 90, font = 2)

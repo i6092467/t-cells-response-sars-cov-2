@@ -501,14 +501,14 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
                        cumulative=True,
                        density=True, label='CD154, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL2, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
-                       density=True, label='TNF, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='TNF, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
                        cumulative=True,
-                       density=True, label='CD154, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='CD154, normalized', histtype=u'step', linewidth=linewidth)
 
         else:
             ax[j].hist(values_r_CD154, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
@@ -522,13 +522,13 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
                        density=True, label='IL2, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
                        cumulative=True,
-                       density=True, label='CD154, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='CD154, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
-                       density=True, label='TNF, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='TNF, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, normalised', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL2, normalized', histtype=u'step', linewidth=linewidth)
 
         if j == len(dtypes) - 1:
             plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1.05))
