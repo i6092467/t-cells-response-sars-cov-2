@@ -7,7 +7,7 @@ This repository holds the code for the analysis of the association between the p
 All required libraries are listed in the conda environment specified by `environment.yml`. To install it, execute the commands below:
 ```
 conda env create -f environment.yml   # install dependencies
-conda activate ...                    # activate environment
+conda activate t-cells-cov            # activate environment
 ```
 
 ### Usage
