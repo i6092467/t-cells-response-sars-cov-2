@@ -13,9 +13,9 @@ conda activate t-cells-cov            # activate environment
 ### Usage
 
 The analysis can be reproduced by running the following [Jupyter](https://jupyter.org/) notebooks:
-- `thresholds.ipynb`: computing optimal antibody level cutoffs
-- `diagnostics.ipynb`: histograms; correlation matrices; cumulative distributions; coefficients of variation
-- `final_analysis.ipynb`: principal component analysis; predictive models for antibody response; variable importances
+- [`thresholds.ipynb`](/thresholds.ipynb): computing optimal antibody level cutoffs
+- [`diagnostics.ipynb`](/diagnostics.ipynb): histograms; correlation matrices; cumulative distributions; coefficients of variation
+- [`final_analysis.ipynb`](/final_analysis.ipynb): principal component analysis; predictive models for antibody response; variable importances
 
 For the further details on utility functions, consult their documentation.
 
