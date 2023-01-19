@@ -19,6 +19,8 @@ The analysis can be reproduced by running the following [Jupyter](https://jupyte
 
 For the further details on utility functions, consult their documentation.
 
+<!--
 ### Maintainer
 
 This repository is maintained by Ričards Marcinkevičs ([ricards.marcinkevics@inf.ethz.ch](mailto:ricards.marcinkevics@inf.ethz.ch)).
+-->
