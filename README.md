@@ -4,7 +4,7 @@ This repository holds the code for the analysis of the association between the p
 
 ### Requirements
 
-All required libraries are listed in the conda environment specified by `environment.yml`. To install it, execute the commands below:
+All required libraries are listed in the conda environment specified by [`environment.yml`](/environment.yml). To install it, execute the commands below:
 ```
 conda env create -f environment.yml   # install dependencies
 conda activate t-cells-cov            # activate environment
