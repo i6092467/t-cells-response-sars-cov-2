@@ -31,7 +31,7 @@ The analysis can be reproduced by running the following [Jupyter](https://jupyte
 - [`diagnostics.ipynb`](/diagnostics.ipynb): histograms; correlation matrices; cumulative distributions; coefficients of variation
 - [`final_analysis.ipynb`](/final_analysis.ipynb): principal component analysis; predictive models for antibody response; variable importances
 
-Additionally, the [R](https://www.r-project.org/) script [`correltion_matrices.R`](/correlation_matrices.R) can be used to visualise pairwise correlation matrices.
+Additionally, the [R](https://www.r-project.org/) script [`correlation_matrices.R`](/correlation_matrices.R) can be used to visualise pairwise correlation matrices.
 
 For the further details on utility functions, consult documentation.
 
