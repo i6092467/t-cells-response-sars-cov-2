@@ -469,34 +469,31 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str, df_dir: str) -> None:
     df = read_csv(filepath_or_buffer=df_dir, low_memory=False)
 
     # Inclusion criteria:
-    included = np.logical_or(df['Proband_in_miltenyi_positive_negative_consolidated'].values == 'positive',
-                             df['Proband_in_miltenyi_positive_negative_consolidated'].values == 'negative')
+    included = np.ones((df.shape[0], )) == 1
 
     df_included = df.loc[np.squeeze(np.argwhere(included)),]
 
     # Exclude patients with an RBD-only response from the analysis
-    RBn_only_S10 = np.logical_and(df_included['RB50_IgG_S10'].values >= 50,
-                                  np.logical_not(np.logical_or(df_included['NP50_IgG_S10'].values >= 5.0,
-                                                               np.logical_or(df_included['S150_IgG_S10'].values >= 20,
-                                                                             df_included[
-                                                                                 'S250_IgG_S10'].values >= 5.0))))
-    RBn_only_S11 = np.logical_and(df_included['RB50_IgG_S11'].values >= 50,
-                                  np.logical_not(np.logical_or(df_included['NP50_IgG_S11'].values >= 5.0,
-                                                               np.logical_or(df_included['S150_IgG_S11'].values >= 20,
-                                                                             df_included[
-                                                                                 'S250_IgG_S11'].values >= 5.0))))
-    RBn_only = np.logical_and(RBn_only_S10, RBn_only_S11)
-    df_included = df_included.iloc[np.squeeze(np.argwhere(np.logical_not(RBn_only))),]
+    RBD_only_S10 = np.logical_and(df_included['RBD_IgG_S10'].values >= 50,
+                                  np.logical_not(np.logical_or(df_included['N_IgG_S10'].values >= 5.0,
+                                                               np.logical_or(df_included['S1_IgG_S10'].values >= 20,
+                                                                             df_included['S2_IgG_S10'].values >= 5.0))))
+    RBD_only_S11 = np.logical_and(df_included['RBD_IgG_S11'].values >= 50,
+                                  np.logical_not(np.logical_or(df_included['N_IgG_S11'].values >= 5.0,
+                                                               np.logical_or(df_included['S1_IgG_S11'].values >= 20,
+                                                                             df_included['S2_IgG_S11'].values >= 5.0))))
+    RBD_only = np.logical_and(RBD_only_S10, RBD_only_S11)
+    df_included = df_included.iloc[np.squeeze(np.argwhere(np.logical_not(RBD_only))),]
 
     # Define consolidated antibody response
-    consolidated_response_S10 = np.logical_and(df_included['RB50_IgG_S10'].values >= 50,
-                                               np.logical_or(df_included['NP50_IgG_S10'].values >= 5.0,
-                                                             np.logical_or(df_included['S150_IgG_S10'].values >= 20,
-                                                                           df_included['S250_IgG_S10'].values >= 5.0)))
-    consolidated_response_S11 = np.logical_and(df_included['RB50_IgG_S11'].values >= 50,
-                                               np.logical_or(df_included['NP50_IgG_S11'].values >= 5.0,
-                                                             np.logical_or(df_included['S150_IgG_S11'].values >= 20,
-                                                                           df_included['S250_IgG_S11'].values >= 5.0)))
+    consolidated_response_S10 = np.logical_and(df_included['RBD_IgG_S10'].values >= 50,
+                                               np.logical_or(df_included['N_IgG_S10'].values >= 5.0,
+                                                             np.logical_or(df_included['S1_IgG_S10'].values >= 20,
+                                                                           df_included['S2_IgG_S10'].values >= 5.0)))
+    consolidated_response_S11 = np.logical_and(df_included['RBD_IgG_S11'].values >= 50,
+                                               np.logical_or(df_included['N_IgG_S11'].values >= 5.0,
+                                                             np.logical_or(df_included['S1_IgG_S11'].values >= 20,
+                                                                           df_included['S2_IgG_S11'].values >= 5.0)))
     consolidated_response_ = np.logical_or(consolidated_response_S10, consolidated_response_S11)
     consolidated_response = np.copy(consolidated_response_).astype('U32')
     consolidated_response[consolidated_response_] = 'positive'
@@ -524,56 +521,50 @@ def boot_train_test_XGB_trt_vs_ab(trt: int, ab: str, df_dir: str) -> None:
     if ab == 'cons':
         ab_suffix = '_cons'
         target_response = consolidated_response
-    elif ab == 'rb50':
-        ab_suffix = '_rb50'
-        # RB50 response 
-        rb50_response_s10 = df_included['Proband_in_miltenyi_RB50_S10_consolidated'].values
-        rb50_response_s11 = df_included['Proband_in_miltenyi_RB50_S11_consolidated'].values
-        rb50_response = np.copy(rb50_response_s10)
-        rb50_response[:] = "negative"
-        rb50_response[np.logical_or(rb50_response_s10 == 'positive', 
-                                    rb50_response_s11 == 'positive')] = 'positive'
-        target_response = rb50_response
-    elif ab == 'np50':
-        ab_suffix = '_np50'
-        # NP50 response 
-        np50_response_s10 = df_included['Proband_in_miltenyi_NP50_S10_consolidated'].values
-        np50_response_s11 = df_included['Proband_in_miltenyi_NP50_S11_consolidated'].values
-        np50_response = np.copy(np50_response_s10)
-        np50_response[:] = "negative"
-        np50_response[np.logical_or(np50_response_s10 == 'positive', 
-                                    np50_response_s11 == 'positive')] = 'positive'
-        target_response = np50_response
-    elif ab == 's150':
-        ab_suffix = '_s150'
-        # S150 response 
-        s150_response_s10 = df_included['Proband_in_miltenyi_S150_S10_consolidated'].values
-        s150_response_s11 = df_included['Proband_in_miltenyi_S150_S11_consolidated'].values
-        s150_response = np.copy(s150_response_s10)
-        s150_response[:] = "negative"
-        s150_response[np.logical_or(s150_response_s10 == 'positive', 
-                                    s150_response_s11 == 'positive')] = 'positive'
-        
-        target_response = s150_response
-    elif ab == 's250':
-        ab_suffix = '_s250'
-        # S250 response 
-        s250_response_s10 = df_included['Proband_in_miltenyi_S250_S10_consolidated'].values
-        s250_response_s11 = df_included['Proband_in_miltenyi_S250_S11_consolidated'].values
-        s250_response = np.copy(s250_response_s10)
-        s250_response[:] = "negative"
-        s250_response[np.logical_or(s250_response_s10 == 'positive', 
-                                    s250_response_s11 == 'positive')] = 'positive'
-        target_response = s250_response
+    elif ab == 'rbd':
+        ab_suffix = '_rbd'
+        # RBD response
+        rbd_response_s10 = df_included['RBD_IgG_S10'].values >= 50
+        rbd_response_s11 = df_included['RBD_IgG_S11'].values >= 50
+        rbd_response = np.copy(rbd_response_s10).astype('U32')
+        rbd_response[:] = "negative"
+        rbd_response[np.logical_or(rbd_response_s10 == True, rbd_response_s11 == True)] = 'positive'
+        target_response = rbd_response
+    elif ab == 'n':
+        ab_suffix = '_n'
+        # N response
+        n_response_s10 = df_included['N_IgG_S10'].values >= 5
+        n_response_s11 = df_included['N_IgG_S11'].values >= 5
+        n_response = np.copy(n_response_s10).astype('U32')
+        n_response[:] = "negative"
+        n_response[np.logical_or(n_response_s10 == True, n_response_s11 == True)] = 'positive'
+        target_response = n_response
+    elif ab == 's1':
+        ab_suffix = '_s1'
+        # S1 response
+        s1_response_s10 = df_included['S1_IgG_S10'].values >= 20
+        s1_response_s11 = df_included['S1_IgG_S11'].values >= 20
+        s1_response = np.copy(s1_response_s10).astype('U32')
+        s1_response[:] = "negative"
+        s1_response[np.logical_or(s1_response_s10 == True, s1_response_s11 == True)] = 'positive'
+        target_response = s1_response
+    elif ab == 's2':
+        ab_suffix = '_s2'
+        # S2 response
+        s2_response_s10 = df_included['S2_IgG_S10'].values >= 5
+        s2_response_s11 = df_included['S2_IgG_S11'].values >= 5
+        s2_response = np.copy(s2_response_s10).astype('U32')
+        s2_response[:] = "negative"
+        s2_response[np.logical_or(s2_response_s10 == True, s2_response_s11 == True)] = 'positive'
+        target_response = s2_response
     elif ab == 'nab':
         ab_suffix = '_nab'
-        # nAB response 
-        nab_response_s10 = df_included['Proband_in_miltenyi_nAB_positive_negative_consolidated'].values
-        nab_response_s11 = df_included['Proband_in_miltenyi_nAB_positive_negative_consolidated'].values
-        nab_response = np.copy(nab_response_s10)
+        # nAb response
+        nab_response_s10 = df_included['nAb_S10'].values >= 20
+        nab_response_s11 = df_included['nAb_S11'].values >= 20
+        nab_response = np.copy(nab_response_s10).astype('U32')
         nab_response[:] = "negative"
-        nab_response[np.logical_or(nab_response_s10 == 'positive', 
-                                   nab_response_s11 == 'positive')] = 'positive'
+        nab_response[np.logical_or(nab_response_s10 == True, nab_response_s11 == True)] = 'positive'
         target_response = nab_response
     else:
         NotImplementedError('ERROR: wrong antibody type!')
