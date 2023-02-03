@@ -397,7 +397,6 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
     xranges = [[-750, 750], [-0.005, 0.005], [-100, 100]]
     dtypes = ['count', 'perc', 'mfi']
     dtype_names = ['Count', 'Percentage', 'MFI']
-    subfig_caps = ['(a)', '(b)', '(c)']
 
     plotting_setup(font_size=30)
     fig, ax = plt.subplots(1, len(dtypes), figsize=(7 + 10 * len(dtypes), 9))
@@ -538,9 +537,7 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
         if j == 0:
             ax[j].set_ylabel('% Measurements')
 
-        ax[j].text(xrange[0], -0.25, subfig_caps[j], weight='bold')
-
-        plt.tight_layout()
+        plt.tight_layout(pad=2.5)
 
         if savedir is not None:
             plt.savefig(fname=savedir, dpi=300)
