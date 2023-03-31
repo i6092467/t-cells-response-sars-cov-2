@@ -785,8 +785,8 @@ def plotting_setup(font_size: int = 12):
     plt.style.use("seaborn-colorblind")
     plt.rcParams['font.size'] = font_size
     rc('text', usetex=False)
-    plt.rcParams["font.family"] = "Times New Roman"
-    rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+    plt.rcParams["font.family"] = "sans-serif"
+    rc('font', **{'family': 'sans-serif', 'sans-serif': ['Arial']})
 
 
 def make_segments(x, y):
