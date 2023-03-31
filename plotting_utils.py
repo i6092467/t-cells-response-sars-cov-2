@@ -396,10 +396,10 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
     """
     xranges = [[-750, 750], [-0.005, 0.005], [-100, 100]]
     dtypes = ['count', 'perc', 'mfi']
-    dtype_names = ['Count', 'Percentage', 'MFI']
+    dtype_names = ['Count [#]', 'Percentage [%]', 'MFI']
 
     plotting_setup(font_size=30)
-    fig, ax = plt.subplots(1, len(dtypes), figsize=(7 + 10 * len(dtypes), 9))
+    fig, ax = plt.subplots(len(dtypes), 1, figsize=(20, 10 * len(dtypes)))
 
     for j in range(len(dtypes)):
         xrange = xranges[j]
@@ -491,18 +491,18 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
         # All treatments
         if dtype == 'mfi':
             ax[j].hist(values_r_IL2, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, raw', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL-2, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_IFN, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, raw', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN-$\gamma$, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_TNF, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
                        density=True, label='TNF, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_CD154, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
                        cumulative=True,
                        density=True, label='CD154, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, normalized', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL-2, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, normalized', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN-$\gamma$, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
                        density=True, label='TNF, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
@@ -514,28 +514,27 @@ def plot_assay_ecdfs(rdata: np.ndarray, rdata_cols: list, ndata: np.ndarray, nda
                        cumulative=True,
                        density=True, label='CD154, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_IFN, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, raw', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN-$\gamma$, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_TNF, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
                        density=True, label='TNF, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_r_IL2, bins=bins, ls='-', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, raw', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL-2, raw', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_CD154, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[3], facecolor="None",
                        cumulative=True,
                        density=True, label='CD154, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IFN, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[1], facecolor="None", cumulative=True,
-                       density=True, label='IFN, normalized', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IFN-$\gamma$, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_TNF, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[0], facecolor="None", cumulative=True,
                        density=True, label='TNF, normalized', histtype=u'step', linewidth=linewidth)
             ax[j].hist(values_n_IL2, bins=bins, ls=':', edgecolor=CB_COLOR_CYCLE[2], facecolor="None", cumulative=True,
-                       density=True, label='IL2, normalized', histtype=u'step', linewidth=linewidth)
+                       density=True, label='IL-2, normalized', histtype=u'step', linewidth=linewidth)
 
         if j == len(dtypes) - 1:
             plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1.05))
 
         ax[j].set_xlim(xrange)
         ax[j].set_xlabel(str(dtype_name))
-        if j == 0:
-            ax[j].set_ylabel('% Measurements')
+        ax[j].set_ylabel('% Measurements')
 
         plt.tight_layout(pad=2.5)
 
@@ -753,19 +752,20 @@ def plot_roc(tpr, fpr, thresholds, axes, subplots_kwargs=None,
         if label_kwargs is None:
             label_kwargs = {}
 
-        if 'bbox' not in label_kwargs:
-            label_kwargs['bbox'] = dict(
-                boxstyle='round,pad=0.25', fc='yellow', alpha=0.5,
-            )
+        # Disable plotting boxes around threshold labels
+        # if 'bbox' not in label_kwargs:
+        #     label_kwargs['bbox'] = dict(
+        #         boxstyle='round,pad=0.25', fc='yellow', alpha=0.5,
+        #     )
 
         for k in six.moves.range(len(tpr)):
             if k % label_every != 0:
                 continue
 
             threshold = str(np.round(thresholds[k], 2))
-            x = fpr[k]
-            y = tpr[k]
-            axes.annotate(threshold, (x, y), fontsize=16, **label_kwargs)
+            x = fpr[k] + 0.01
+            y = tpr[k] + 0.02
+            axes.annotate(threshold, (x, y), fontsize=16, color='gray', **label_kwargs)
 
     if luck_label is not None:
         axes.plot((0, 1), (0, 1), '--', color='Gray', label='Random guess')
