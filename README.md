@@ -1,4 +1,4 @@
-# Machine learning analysis of humoral and cellular responses to SARS-CoV-2 infection in young adult
+# Machine learning analysis of humoral and cellular responses to SARS-CoV-2 infection in young adults
 
 **Abstract**: The severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) induces B and T cell responses, 
 contributing to virus neutralization. In a cohort of 2,911 young adults, we identified 65 individuals who had an 
