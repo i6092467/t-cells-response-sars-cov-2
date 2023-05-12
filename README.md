@@ -61,7 +61,6 @@ Shu X, Baiioud N, Bernal S, Dassisti L, Saenz-de-Juano MD, Schmidhauser M, Silve
                     and Julia Vogt and Federica Sallusto and Markus Stoffel and Susanne E. Ulbrich},
   journal=    {Frontiers in Immunology},
   volume=     {14},
-  pages=      {1158905},
   year=       {2023},
   publisher=  {Frontiers}
 }
